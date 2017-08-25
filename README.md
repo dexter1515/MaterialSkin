@@ -23,9 +23,10 @@ TabControl | Yes | N/A | N/A | Yes
 ContextMenuStrip | Yes | Yes | Yes | Yes
 ListView | Yes | Yes | No | No
 ProgressBar | Yes | Yes | No | No 
+Switch/Toggle | Yes | Yes | Yes | Yes
+Snackbar | Yes | N/A | N/A | Yes
 FloatingActionButton | No | No | No | No
 Dialogs | No | No | No | No
-Switch | No | No | No | No
 More... | No | No | No | No
 
 ---
