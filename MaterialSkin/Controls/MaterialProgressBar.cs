@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MaterialSkin.Controls
 {
@@ -69,6 +70,9 @@ namespace MaterialSkin.Controls
                 base.SetBoundsCore(x, y, width, height, specified);
         }
 
+        System.Drawing.Brush _brush = MaterialSkinManager.Instance.ColorScheme.PrimaryBrush;
+        bool useColor = false;
+
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
         /// </summary>
@@ -76,8 +80,31 @@ namespace MaterialSkin.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             var doneProgress = (int)(e.ClipRectangle.Width * ((double)Value / Maximum));
-            e.Graphics.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, 0, 0, doneProgress, e.ClipRectangle.Height);
+            if (useColor == false)
+            {
+                _brush = SkinManager.ColorScheme.PrimaryBrush;
+            }
+            e.Graphics.FillRectangle(_brush, 0, 0, doneProgress, e.ClipRectangle.Height);
             e.Graphics.FillRectangle(SkinManager.GetDisabledOrHintBrush(), doneProgress, 0, e.ClipRectangle.Width, e.ClipRectangle.Height);
+        }
+
+        /// <summary>
+        /// Sets manual ProgressBar color.
+        /// </summary>
+        /// <param name="value">The new <see cref="T:System.Drawing.Color" /> of the ProgressBar.</param>
+        public void SetColor(Color value)
+        {
+            this._brush = (Brush)MaterialSkinManager.Instance.ColorScheme.PrimaryBrush.Clone();
+            (this._brush as SolidBrush).Color = value;
+            useColor = true;
+        }
+
+        /// <summary>
+        /// Sets ProgressBar color to the Themes default color.
+        /// </summary>
+        public void ResetColorToThemeDefault()
+        {
+            useColor = false;
         }
     }
 }
