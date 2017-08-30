@@ -44,6 +44,15 @@ namespace MaterialSkin.Controls
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
+        bool fixedHeight = true;
+
+        public bool FixedHeight
+        {
+            get { return fixedHeight; }
+            set { fixedHeight = value; }
+        }
+
+
         /// <summary>
         /// Performs the work of setting the specified bounds of this control.
         /// </summary>
@@ -54,7 +63,10 @@ namespace MaterialSkin.Controls
         /// <param name="specified">A bitwise combination of the <see cref="T:System.Windows.Forms.BoundsSpecified" /> values.</param>
         protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
         {
-            base.SetBoundsCore(x, y, width, 5, specified);
+            if (FixedHeight)
+                base.SetBoundsCore(x, y, width, 5, specified);
+            else
+                base.SetBoundsCore(x, y, width, height, specified);
         }
 
         /// <summary>
